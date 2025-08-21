@@ -124,12 +124,19 @@ vim.o.breakindent = true
 -- Save undo history
 vim.o.undofile = true
 
+-- Global indentation defaults
+vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.shiftwidth = 2 -- indent by 2 spaces
+vim.opt.softtabstop = 2 -- <Tab> inserts 2 spaces
+vim.opt.tabstop = 2 -- show existing tab characters as 2 spaces
+vim.opt.smartindent = true -- smarter autoindent
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = 'no'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -175,6 +182,9 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- CLose all buffers
+vim.keymap.set('n', '<leader>bd', ':bufdo bd<CR>', { desc = 'Close all buffers' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -248,9 +258,6 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -273,18 +280,18 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --   },
+  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -428,14 +435,15 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sc', builtin.colorscheme, { desc = '[S]earch [C]olorschemes' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]find [H]elp' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]find [F]iles' })
+      vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = '[F]find [C]olorschemes' })
+      vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]find by [W]ord' })
+      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]find [R]esume' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] find existing buffers' })
+      -- vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]find [B]uffers' })
+      -- vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]find [K]eymaps' })
+      -- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]earch current [W]ord' })
       -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       -- vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -720,6 +728,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'prettier',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -746,7 +755,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>F',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -881,45 +890,6 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    -- 'folke/tokyonight.nvim',
-    -- priority = 1000, -- Make sure to load this before all the other start plugins.
-    -- config = function()
-    --   ---@diagnostic disable-next-line: missing-fields
-    --   require('tokyonight').setup {
-    --     styles = {
-    --       comments = { italic = false }, -- Disable italics in comments
-    --     },
-    --   }
-    --
-    --   -- Load the colorscheme here.
-    --   -- Like many other themes, this one has different styles, and you could load
-    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-    --   vim.cmd.colorscheme 'tokyonight-night'
-    -- end,
-    'rose-pine/neovim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('rose-pine').setup {
-        styles = {
-          transparency = true,
-          italic = true,
-          bold = true,
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'rose-pine'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -940,24 +910,6 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -999,7 +951,6 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
