@@ -423,10 +423,13 @@ require('lazy').setup({
         -- },
         -- pickers = {}
         defaults = {
+          file_ignore_patterns = { 'node_modules', '.git/' },
+          path_display = { 'truncate' }, -- truncates long paths in the middle
+          sorting_strategy = 'ascending',
           layout_config = {
-            prompt_position = 'top', -- move prompt above results
+            width = 0.9,
+            height = 0.8,
           },
-          sorting_strategy = 'ascending', -- results listed downwards
         },
         extensions = {
           ['ui-select'] = {
@@ -988,6 +991,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
+
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
