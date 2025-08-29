@@ -1,32 +1,32 @@
 return {
-  {
-    'karb94/neoscroll.nvim',
-    event = 'VeryLazy', -- lazy-load when idle
-    opts = {
-      mappings = { -- Keys to be mapped to their corresponding default scrolling animation
-        '<C-u>',
-        '<C-d>',
-        '<C-b>',
-        '<C-f>',
-        '<C-y>',
-        '<C-e>',
-        'zt',
-        'zz',
-        'zb',
-      },
-      hide_cursor = true, -- Hide cursor while scrolling
-      stop_eof = true, -- Stop at <EOF> when scrolling downwards
-      respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-      cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-      duration_multiplier = 0.75, -- Global duration multiplier
-      easing = 'linear', -- Default easing function
-      pre_hook = nil, -- Function to run before the scrolling animation starts
-      post_hook = nil, -- Function to run after the scrolling animation ends
-      performance_mode = false, -- Disable "Performance Mode" on all buffers.
-      ignored_events = { -- Events ignored while scrolling
-        'WinScrolled',
-        'CursorMoved',
-      },
-    },
-  },
+  -- {
+  --   'karb94/neoscroll.nvim',
+  --   event = 'VeryLazy',
+  --   opts = {
+  --     -- turn off plugin’s default keymaps; we’ll define our own
+  --     mappings = {},
+  --     hide_cursor = false,
+  --     stop_eof = true,
+  --     respect_scrolloff = true,
+  --     cursor_scrolls_alone = true,
+  --     duration_multiplier = 1.0, -- keep at 1.0 since we set explicit durations below
+  --     easing = 'sine', -- smoother, VSCode-ish
+  --     performance_mode = true,
+  --     ignored_events = { 'WinScrolled' },
+  --   },
+  --   config = function(_, opts)
+  --     local neoscroll = require 'neoscroll'
+  --     neoscroll.setup(opts)
+  --
+  --     local map, modes = vim.keymap.set, { 'n', 'v', 'x' }
+  --
+  --     -- Fast-but-smooth VSCode feel
+  --     map(modes, '<C-u>', function()
+  --       neoscroll.ctrl_u { duration = 160 }
+  --     end, { desc = 'Smooth half-page up' })
+  --     map(modes, '<C-d>', function()
+  --       neoscroll.ctrl_d { duration = 160 }
+  --     end, { desc = 'Smooth half-page down' })
+  --   end,
+  -- },
 }
