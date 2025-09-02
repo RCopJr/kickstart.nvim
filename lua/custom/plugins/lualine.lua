@@ -2,7 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   opts = {
     options = {
-      theme = 'gruvbox-material', -- Use the Gruvbox Material theme
+      theme = 'nord', -- Use the Gruvbox Material theme
       component_separators = { left = '│', right = '│' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = { 'NvimTree', 'packer' },
@@ -11,7 +11,18 @@ return {
     sections = {
       lualine_a = {},
       lualine_b = { 'branch', 'diff' },
-      lualine_c = { { 'filename', path = 1 } },
+      lualine_c = {
+        {
+          'filename',
+          path = 1, -- relative path
+          shorting_target = 40, -- will shorten to keep statusline under 40 chars
+          symbols = {
+            modified = '[+]', -- Text to show when the file is modified
+            readonly = '[-]', -- Text to show when the file is non-modifiable
+            unnamed = '[No Name]', -- Text to show for unnamed buffers
+          },
+        },
+      },
       lualine_x = { 'diagnostics' },
       lualine_y = { 'filetype' },
       lualine_z = { 'location' },
