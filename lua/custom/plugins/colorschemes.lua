@@ -6,7 +6,7 @@ return {
     config = function()
       require('nordic').setup {
         bold_keywords = false,
-        italic_comments = true,
+        italic_comments = false,
         transparent = {
           bg = true,
           float = true,
