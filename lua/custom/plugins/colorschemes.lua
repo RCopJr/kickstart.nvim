@@ -9,7 +9,7 @@ return {
         italic_comments = false,
         transparent = {
           bg = true,
-          float = true,
+          float = false,
         },
         bright_border = true,
         reduced_blue = true,
@@ -30,7 +30,7 @@ return {
       vim.cmd.colorscheme 'nordic'
       vim.api.nvim_set_hl(0, 'Visual', { bg = '#3B4555', fg = 'NONE' })
       -- Override orange keywords → blue
-      local blue = '#81A1C1'
+      local blue = '#BF616A'
       vim.api.nvim_set_hl(0, 'Keyword', { fg = blue })
     end,
   },
