@@ -1,5 +1,42 @@
 return {
   {
+    'shaunsingh/nord.nvim',
+    config = function()
+      vim.g.nord_disable_background = true -- no solid background
+      vim.g.nord_italic = false -- make comments/keywords non-italic (optional)
+      vim.g.nord_bold = false
+      vim.g.nord_borders = true -- keep borders styled
+      vim.g.nord_contrast = false -- high contrast line numbers/sidebars
+
+      -- load the colorscheme
+      vim.cmd.colorscheme 'nord'
+
+      -- extra tweaks for transparency
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+      -- tweak line numbers to be darker
+      vim.api.nvim_set_hl(0, 'LineNr', { fg = '#4C566A', bg = 'none' }) -- subtle grey
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#81A1C1', bg = 'none', bold = true }) -- softer blue for current line
+      -- soften the default white
+      vim.api.nvim_set_hl(0, 'Normal', { fg = '#D8DEE9', bg = 'none' }) -- softer text
+      vim.api.nvim_set_hl(0, 'NormalFloat', { fg = '#D8DEE9', bg = 'none' })
+      vim.api.nvim_set_hl(0, 'MsgArea', { fg = '#D8DEE9', bg = 'none' })
+      -- treesitter-context background
+      vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2E3440' }) -- dark nord0
+      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#81A1C1', bg = '#2E3440' })
+      -- make whitespace symbols match line numbers
+      vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+      vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+    end,
+  },
+  {
     'AlexvZyl/nordic.nvim',
     lazy = false,
     priority = 1000,
@@ -31,7 +68,9 @@ return {
       vim.api.nvim_set_hl(0, 'Visual', { bg = '#3B4555', fg = 'NONE' })
       -- Override orange keywords → blue
       local blue = '#BF616A'
-      vim.api.nvim_set_hl(0, 'Keyword', { fg = blue })
+      local purple = '#A87CA0'
+      local dark_blue = '#5E81AC'
+      vim.api.nvim_set_hl(0, 'Keyword', { fg = dark_blue })
     end,
   },
   {
