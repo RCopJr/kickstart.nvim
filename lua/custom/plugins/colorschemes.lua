@@ -34,6 +34,16 @@ return {
       -- make whitespace symbols match line numbers
       vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
       vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+
+      local dark_blue = '#5E81AC'
+      local function_name_color = '#88C0D0'
+
+      -- Treesitter overrides
+      vim.api.nvim_set_hl(0, '@keyword', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@keyword.function', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@keyword.return', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@conditional', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@repeat', { fg = dark_blue })
     end,
   },
   {
