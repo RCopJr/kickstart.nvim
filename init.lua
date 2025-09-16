@@ -1027,3 +1027,51 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    -- Open a scratch buffer
+    vim.cmd 'enew'
+    vim.bo.buftype = 'nofile'
+    vim.bo.bufhidden = 'wipe'
+    vim.bo.swapfile = false
+    vim.bo.modifiable = true
+
+    -- Your ASCII art
+    local ascii_art = {
+      '#                   #   #         #   ######   #########',
+      '#        ########## #   # #       #     #              #',
+      '##########         #  #   #  #     #  ##########         #',
+      '#     #         #   #   #       #       #      ########',
+      '#            # #       #      ##        #             #',
+      '#             #       #     ##          #             #',
+      '######        #    ##    ##             ####  ########',
+    }
+
+    -- Get screen dimensions
+    local win_width = vim.api.nvim_get_option 'columns'
+    local win_height = vim.api.nvim_get_option 'lines'
+
+    -- Figure out vertical padding (above art)
+    local pad_top = math.floor((win_height - #ascii_art) / 2)
+
+    -- Add vertical padding (blank lines before art)
+    local centered = {}
+    for _ = 1, pad_top do
+      table.insert(centered, '')
+    end
+
+    -- Add horizontal padding for each line
+    for _, line in ipairs(ascii_art) do
+      local pad_left = math.floor((win_width - #line) / 2)
+      table.insert(centered, string.rep(' ', pad_left) .. line)
+    end
+
+    -- Insert into buffer
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, centered)
+
+    -- Lock buffer
+    vim.bo.modifiable = false
+    vim.bo.readonly = true
+  end,
+})
