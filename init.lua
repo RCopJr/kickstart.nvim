@@ -450,6 +450,14 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = '[F]find [C]olorschemes' })
       vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]find by [W]ord' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]find [R]esume' })
+      vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = '[F]ind [S]ymbols (buffer)' })
+      -- Find TODOs in current buffer only
+      vim.keymap.set('n', '<leader>ft', function()
+        -- search "TODO" in current buffer and populate quickfix list
+        vim.cmd 'vim /TODO/ %'
+        -- then open Trouble quickfix
+        vim.cmd 'Trouble qflist toggle'
+      end, { desc = '[F]ind [T]ODOs in (buffer)' })
       -- vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]find [B]uffers' })
       -- vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]find [K]eymaps' })
       -- vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]earch current [W]ord' })
@@ -482,7 +490,7 @@ require('lazy').setup({
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[F]earch [N]eovim files' })
+      end, { desc = '[F]ind [N]eovim files' })
     end,
   },
 
@@ -565,7 +573,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
