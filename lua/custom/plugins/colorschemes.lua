@@ -7,6 +7,30 @@ return {
       -- load scheme
       vim.cmd.colorscheme 'lackluster-hack' -- or "lackluster", "lackluster-mint"
 
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+      -- Transparent telescope floating windows
+      vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
+      vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
+      vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+      vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+
       -- Hard-coded treesitter-context highlights
       vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
