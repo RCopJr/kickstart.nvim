@@ -83,7 +83,6 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -427,6 +426,7 @@ require('lazy').setup({
           path_display = { 'truncate' }, -- truncates long paths in the middle
           sorting_strategy = 'ascending',
           layout_config = {
+            prompt_position = 'top',
             width = 0.9,
             height = 0.8,
           },
@@ -573,10 +573,10 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('ga', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
-          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -585,7 +585,7 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -602,7 +602,7 @@ require('lazy').setup({
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+          map('gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
@@ -995,7 +995,6 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
@@ -1035,51 +1034,3 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    -- Open a scratch buffer
-    vim.cmd 'enew'
-    vim.bo.buftype = 'nofile'
-    vim.bo.bufhidden = 'wipe'
-    vim.bo.swapfile = false
-    vim.bo.modifiable = true
-
-    -- Your ASCII art
-    local ascii_art = {
-      '#                   #   #         #   ######   #########',
-      '#        ########## #   # #       #     #              #',
-      '##########         #  #   #  #     #  ##########         #',
-      '#     #         #   #   #       #       #      ########',
-      '#            # #       #      ##        #             #',
-      '#             #       #     ##          #             #',
-      '######        #    ##    ##             ####  ########',
-    }
-
-    -- Get screen dimensions
-    local win_width = vim.api.nvim_get_option 'columns'
-    local win_height = vim.api.nvim_get_option 'lines'
-
-    -- Figure out vertical padding (above art)
-    local pad_top = math.floor((win_height - #ascii_art) / 2)
-
-    -- Add vertical padding (blank lines before art)
-    local centered = {}
-    for _ = 1, pad_top do
-      table.insert(centered, '')
-    end
-
-    -- Add horizontal padding for each line
-    for _, line in ipairs(ascii_art) do
-      local pad_left = math.floor((win_width - #line) / 2)
-      table.insert(centered, string.rep(' ', pad_left) .. line)
-    end
-
-    -- Insert into buffer
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, centered)
-
-    -- Lock buffer
-    vim.bo.modifiable = false
-    vim.bo.readonly = true
-  end,
-})
