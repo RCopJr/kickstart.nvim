@@ -5,7 +5,11 @@ return {
   config = function()
     local harpoon = require 'harpoon'
 
-    harpoon:setup()
+    harpoon:setup {
+      settings = {
+        border = 'none', -- removes all Harpoon popup borders
+      },
+    }
 
     -- Keymaps
     vim.keymap.set('n', '<leader>a', function()

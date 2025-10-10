@@ -1,12 +1,23 @@
 return {
   {
-    'slugbyte/lackluster.nvim',
+    'zenbones-theme/zenbones.nvim',
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    dependencies = 'rktjmp/lush.nvim',
     lazy = false,
     priority = 1000,
+    -- you can set set configuration options here
     config = function()
-      -- load scheme
-      vim.cmd.colorscheme 'lackluster-hack' -- or "lackluster", "lackluster-mint"
+      -- vim.o.background = "light"
+      --
+      vim.g.zenbones_italic_comments = false
+      vim.g.zenbones_italic_keywords = false
+      vim.g.zenbones_italic_booleans = false
+      vim.g.zenbones_italic_functions = false
+      vim.g.zenbones_italic_variables = false
 
+      vim.cmd.colorscheme 'nordbones'
       vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
@@ -16,7 +27,7 @@ return {
       vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
-      -- Transparent telescope floating windows
+
       vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
@@ -25,16 +36,53 @@ return {
       vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
       vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
+
       vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
       vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
       vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
       vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
       vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
 
-      -- Hard-coded treesitter-context highlights
       vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
       vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
+    end,
+  },
+  {
+    'slugbyte/lackluster.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- vim.cmd.colorscheme 'lackluster-hack' -- or "lackluster", "lackluster-mint"
+      -- load scheme
+      -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+      -- Transparent telescope floating windows
+      -- vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
+      -- vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
+      -- vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
+      -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
+      -- vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+      -- vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+
+      -- Hard-coded treesitter-context highlights
+      -- vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
+      -- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
+      -- vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
     end,
   },
   {
@@ -155,13 +203,14 @@ return {
   --   config = function()
   --     vim.g.gruvbox_material_enable_italic = true
   --     vim.g.gruvbox_material_background = 'medium'
-  --     vim.g.gruvbox_material_transparent_background = '0'
+  --     vim.g.gruvbox_material_transparent_background = '1'
   --     vim.g.gruvbox_material_enable_bold = '0'
   --     vim.g.gruvbox_material_float_style = 'dim'
   --     vim.g.gruvbox_material_diagnostic_text_highlight = '1'
   --     vim.g.gruvbox_material_diagnostic_line_highlight = '1'
   --     -- vim.g.gruvbox_material_current_word = 'underline'
   --     vim.opt.cursorline = false
+  --     vim.cmd.colorscheme 'gruvbox' -- or "lackluster", "lackluster-mint"
   --   end,
   -- },
   -- {
@@ -183,11 +232,15 @@ return {
   --     ---@diagnostic disable-next-line: missing-fields
   --     require('rose-pine').setup {
   --       styles = {
-  --         transparency = false,
+  --         transparency = true,
   --         italic = false,
-  --         bold = true,
+  --         bold = false,
   --       },
   --     }
+  --     -- remove background color for CursorLine
+  --     vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' })
+  --     -- optional: also remove line number highlight background
+  --     vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
   --   end,
   -- },
   -- {
@@ -212,13 +265,15 @@ return {
   --       invert_selection = false,
   --       invert_signs = false,
   --       invert_tabline = false,
-  --       inverse = true, -- invert background for search, diffs, statuslines and errors
+  --       inverse = false, -- invert background for search, diffs, statuslines and errors
   --       contrast = '', -- can be "hard", "soft" or empty string
   --       palette_overrides = {},
   --       overrides = {},
   --       dim_inactive = false,
-  --       transparent_mode = false,
+  --       transparent_mode = true,
   --     }
+  --
+  --     vim.cmd.colorscheme 'gruvbox' -- or "lackluster", "lackluster-mint"
   --   end,
   -- },
 }
