@@ -1,89 +1,76 @@
 return {
   {
-    'zenbones-theme/zenbones.nvim',
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    dependencies = 'rktjmp/lush.nvim',
-    lazy = false,
-    priority = 1000,
-    -- you can set set configuration options here
+    'EdenEast/nightfox.nvim',
     config = function()
-      -- vim.o.background = "light"
-      --
-      vim.g.zenbones_italic_comments = false
-      vim.g.zenbones_italic_keywords = false
-      vim.g.zenbones_italic_booleans = false
-      vim.g.zenbones_italic_functions = false
-      vim.g.zenbones_italic_variables = false
+      -- Default options
+      require('nightfox').setup {
+        options = {
+          transparent = true, -- Disable setting background
+          terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        },
+        palettes = {},
+        specs = {},
+        groups = {},
+      }
 
-      vim.cmd.colorscheme 'nordbones'
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
-
-      vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
-
-      vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
-      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
-      vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
-      vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
-      vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
-
-      vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
-      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
-      vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
+      -- setup must be called before loading
+      vim.cmd 'colorscheme nightfox'
     end,
   },
+  -- {
+  --   'zenbones-theme/zenbones.nvim',
+  --   -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+  --   -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+  --   -- In Vim, compat mode is turned on as Lush only works in Neovim.
+  --   dependencies = 'rktjmp/lush.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   -- you can set set configuration options here
+  --   config = function()
+  --     -- vim.o.background = "light"
+  --     --
+  --     vim.g.zenbones_italic_comments = false
+  --     vim.g.zenbones_italic_keywords = false
+  --     vim.g.zenbones_italic_booleans = false
+  --     vim.g.zenbones_italic_functions = false
+  --     vim.g.zenbones_italic_variables = false
+  --
+  --     vim.cmd.colorscheme 'rosebones'
+  --     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+  --
+  --     vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
+  --
+  --     vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
+  --     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
+  --     vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
+  --     vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+  --     vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+  --
+  --     vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
+  --     vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
+  --     vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
+  --   end,
+  -- },
   {
     'slugbyte/lackluster.nvim',
     lazy = false,
     priority = 1000,
-    config = function()
-      -- vim.cmd.colorscheme 'lackluster-hack' -- or "lackluster", "lackluster-mint"
-      -- load scheme
-      -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
-      -- Transparent telescope floating windows
-      -- vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
-      -- vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
-      -- vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
-      -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
-      -- vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
-      -- vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
-
-      -- Hard-coded treesitter-context highlights
-      -- vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
-      -- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
-      -- vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
-    end,
+    config = function() end,
   },
   {
     'projekt0n/github-nvim-theme',

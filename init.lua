@@ -794,20 +794,21 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
-      end,
+      format_on_save = false,
+      --   function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { js = true, css = true, php = true, c = true, cpp = true }
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     return nil
+      --   else
+      --     return {
+      --       timeout_ms = 500,
+      --       lsp_format = 'fallback',
+      --     }
+      --   end
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -1032,5 +1033,39 @@ require('lazy').setup({
   },
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- Quickfix list modifications
+local function toggle_qf()
+  local qf_exists = false
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.fn.getwininfo(win)[1].quickfix == 1 then
+      qf_exists = true
+      break
+    end
+  end
+
+  if qf_exists then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end
+
+-- Delete the quickfix entry under the cursor
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "dd", function()
+      -- Get the index (line) of the item you want to remove
+      local idx = vim.fn.line(".")
+      -- Get current quickfix list
+      local qf = vim.fn.getqflist()
+      -- Remove that item (this does NOT delete any file)
+      table.remove(qf, idx)
+      -- Rewrite quickfix list
+      vim.fn.setqflist(qf, "r")
+    end, { buffer = true, desc = "Delete quickfix entry (not file)" })
+  end,
+})
+
+vim.keymap.set("n", "<leader>q", toggle_qf, { desc = "Toggle Quickfix List" })
