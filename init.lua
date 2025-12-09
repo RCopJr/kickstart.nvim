@@ -1049,27 +1049,27 @@ local function toggle_qf()
   end
 
   if qf_exists then
-    vim.cmd("cclose")
+    vim.cmd 'cclose'
   else
-    vim.cmd("copen")
+    vim.cmd 'copen'
   end
 end
 
 -- Delete the quickfix entry under the cursor
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "qf",
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
   callback = function()
-    vim.keymap.set("n", "dd", function()
+    vim.keymap.set('n', 'dd', function()
       -- Get the index (line) of the item you want to remove
-      local idx = vim.fn.line(".")
+      local idx = vim.fn.line '.'
       -- Get current quickfix list
       local qf = vim.fn.getqflist()
       -- Remove that item (this does NOT delete any file)
       table.remove(qf, idx)
       -- Rewrite quickfix list
-      vim.fn.setqflist(qf, "r")
-    end, { buffer = true, desc = "Delete quickfix entry (not file)" })
+      vim.fn.setqflist(qf, 'r')
+    end, { buffer = true, desc = 'Delete quickfix entry (not file)' })
   end,
 })
 
-vim.keymap.set("n", "<leader>q", toggle_qf, { desc = "Toggle Quickfix List" })
+vim.keymap.set('n', '<leader>q', toggle_qf, { desc = 'Toggle Quickfix List' })
