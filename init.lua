@@ -428,7 +428,7 @@ require('lazy').setup({
           layout_config = {
             prompt_position = 'top',
             width = 0.9,
-            height = 0.8,
+            height = 0.9,
           },
         },
         extensions = {
@@ -470,6 +470,10 @@ require('lazy').setup({
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           previewer = false,
+          layout_config = {
+            height = 0.9,
+            width = 0.9,
+          },
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
