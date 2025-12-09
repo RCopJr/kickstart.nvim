@@ -1,5 +1,39 @@
 return {
   {
+    'nyoom-engineering/oxocarbon.nvim',
+    config = function()
+      vim.cmd 'colorscheme oxocarbon'
+      local oxocarbon = require 'oxocarbon'
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = oxocarbon.blend, bg = oxocarbon.blend })
+      vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = oxocarbon.base02, bg = oxocarbon.base02 })
+      vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = oxocarbon.base05, bg = oxocarbon.base02 })
+      vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = oxocarbon.base08, bg = oxocarbon.base02 })
+      vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = oxocarbon.none, bg = oxocarbon.blend })
+      vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = oxocarbon.base02, bg = oxocarbon.base12 })
+      vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = oxocarbon.base02, bg = oxocarbon.base11 })
+      vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = oxocarbon.blend, bg = oxocarbon.blend })
+      vim.api.nvim_set_hl(0, 'TelescopeSelection', { fg = oxocarbon.none, bg = oxocarbon.base02 })
+      vim.api.nvim_set_hl(0, 'TelescopePreviewLine', { fg = oxocarbon.none, bg = oxocarbon.base01 })
+    end,
+  },
+  {
+    'miikanissi/modus-themes.nvim',
+    priority = 1000,
+    config = function()
+      require('modus-themes').setup {
+        transparent = true,
+        variant = 'tinted',
+        styles = {
+          functions = { italic = false },
+        },
+      }
+      -- vim.cmd 'colorscheme modus'
+    end,
+  },
+  {
     'EdenEast/nightfox.nvim',
     config = function()
       -- Default options
@@ -13,8 +47,7 @@ return {
         groups = {},
       }
 
-      -- setup must be called before loading
-      vim.cmd 'colorscheme nightfox'
+      -- vim.cmd 'colorscheme carbonfox'
     end,
   },
   -- {
@@ -66,12 +99,6 @@ return {
   --     vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
   --   end,
   -- },
-  {
-    'slugbyte/lackluster.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function() end,
-  },
   {
     'projekt0n/github-nvim-theme',
     name = 'github-theme',
