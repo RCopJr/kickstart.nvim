@@ -1,38 +1,43 @@
 return {
   {
-    'nyoom-engineering/oxocarbon.nvim',
-    config = function()
-      vim.cmd 'colorscheme oxocarbon'
-      local oxocarbon = require 'oxocarbon'
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-      vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = oxocarbon.blend, bg = oxocarbon.blend })
-      vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = oxocarbon.base02, bg = oxocarbon.base02 })
-      vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = oxocarbon.base05, bg = oxocarbon.base02 })
-      vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = oxocarbon.base08, bg = oxocarbon.base02 })
-      vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = oxocarbon.none, bg = oxocarbon.blend })
-      vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = oxocarbon.base02, bg = oxocarbon.base12 })
-      vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = oxocarbon.base02, bg = oxocarbon.base11 })
-      vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = oxocarbon.blend, bg = oxocarbon.blend })
-      vim.api.nvim_set_hl(0, 'TelescopeSelection', { fg = oxocarbon.none, bg = oxocarbon.base02 })
-      vim.api.nvim_set_hl(0, 'TelescopePreviewLine', { fg = oxocarbon.none, bg = oxocarbon.base01 })
-    end,
-  },
-  {
-    'miikanissi/modus-themes.nvim',
+    'rose-pine/neovim',
+    name = 'rose-pine',
     priority = 1000,
     config = function()
-      require('modus-themes').setup {
-        transparent = true,
-        variant = 'tinted',
+      require('rose-pine').setup {
+        variant = 'main', -- auto, main, moon, or dawn
+        dark_variant = 'main',
         styles = {
-          functions = { italic = false },
+          bold = false,
+          italic = false,
+          transparency = true,
         },
       }
-      -- vim.cmd 'colorscheme modus'
+      vim.cmd.colorscheme 'rose-pine'
+      vim.api.nvim_set_hl(0, 'CursorLine', {})
+      vim.api.nvim_set_hl(0, 'CursorLineNr', {})
     end,
   },
+  -- {
+  --   'nyoom-engineering/oxocarbon.nvim',
+  --   config = function()
+  --     -- vim.cmd 'colorscheme oxocarbon'
+  --     local oxocarbon = require 'oxocarbon'
+  --     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  --     vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = oxocarbon.blend, bg = oxocarbon.blend })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = oxocarbon.base02, bg = oxocarbon.base02 })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = oxocarbon.base05, bg = oxocarbon.base02 })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptPrefix', { fg = oxocarbon.base08, bg = oxocarbon.base02 })
+  --     vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = oxocarbon.none, bg = oxocarbon.blend })
+  --     vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', { fg = oxocarbon.base02, bg = oxocarbon.base12 })
+  --     vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = oxocarbon.base02, bg = oxocarbon.base11 })
+  --     vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', { fg = oxocarbon.blend, bg = oxocarbon.blend })
+  --     vim.api.nvim_set_hl(0, 'TelescopeSelection', { fg = oxocarbon.none, bg = oxocarbon.base02 })
+  --     vim.api.nvim_set_hl(0, 'TelescopePreviewLine', { fg = oxocarbon.none, bg = oxocarbon.base01 })
+  --   end,
+  -- },
   {
     'EdenEast/nightfox.nvim',
     config = function()
@@ -68,46 +73,36 @@ return {
   --     vim.g.zenbones_italic_functions = false
   --     vim.g.zenbones_italic_variables = false
   --
-  --     vim.cmd.colorscheme 'rosebones'
-  --     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
-  --
-  --     vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
-  --
-  --     vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
-  --     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
-  --     vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
-  --     vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
-  --     vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
-  --
-  --     vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
-  --     vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
-  --     vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
+  --     -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+  --     --
+  --     -- vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopeBorder', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopeResultsNormal', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopeResultsBorder', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { bg = 'none' })
+  --     -- vim.api.nvim_set_hl(0, 'TelescopePreviewBorder', { bg = 'none' })
+  --     --
+  --     -- vim.api.nvim_set_hl(0, 'LineNr', { fg = '#555555', bg = 'none' }) -- subtle gray
+  --     -- vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#d0d0d0', bg = 'none', bold = true }) -- light gray for current line
+  --     -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' }) -- softer blue for current line
+  --     -- vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+  --     -- vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+  --     --
+  --     -- vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2a2a2a', fg = '#cccccc' })
+  --     -- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#777777' })
+  --     -- vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
   --   end,
   -- },
-  {
-    'projekt0n/github-nvim-theme',
-    name = 'github-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('github-theme').setup {}
-    end,
-  },
   -- {
   --   'shaunsingh/nord.nvim',
   --   config = function()
@@ -237,24 +232,6 @@ return {
   --         comments = { italic = false }, -- Disable italics in comments
   --       },
   --     }
-  --   end,
-  -- },
-  -- {
-  --   'rose-pine/neovim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   config = function()
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     require('rose-pine').setup {
-  --       styles = {
-  --         transparency = true,
-  --         italic = false,
-  --         bold = false,
-  --       },
-  --     }
-  --     -- remove background color for CursorLine
-  --     vim.api.nvim_set_hl(0, 'CursorLine', { bg = 'none' })
-  --     -- optional: also remove line number highlight background
-  --     vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
   --   end,
   -- },
   -- {

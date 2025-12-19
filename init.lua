@@ -448,7 +448,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]find [H]elp' })
       vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]find [F]iles' })
       vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = '[F]find [C]olorschemes' })
-      vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[F]find by [W]ord' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]find [R]esume' })
       vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = '[F]ind [S]ymbols (buffer)' })
       -- Find TODOs in current buffer only
@@ -464,6 +463,15 @@ require('lazy').setup({
       -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       -- vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+      vim.keymap.set('n', '<leader>fw', function()
+        builtin.live_grep {
+          layout_strategy = 'horizontal',
+          layout_config = {
+            preview_width = 0.65,
+          },
+        }
+      end, { desc = '[F]find by [W]ord' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -485,11 +493,6 @@ require('lazy').setup({
       --     prompt_title = 'Live Grep in Open Files',
       --   }
       -- end, { desc = '[S]earch [/] in Open Files' })
-      vim.keymap.set('n', '<leader><leader>', function()
-        builtin.buffers(themes.get_dropdown {
-          previewer = false,
-        })
-      end, { desc = '[ ] Find existing buffers' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>fn', function()
@@ -719,6 +722,7 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         gopls = {},
+        jsonls = {},
         eslint = {},
         intelephense = {},
         marksman = {},
