@@ -44,7 +44,7 @@ return {
       -- Default options
       require('nightfox').setup {
         options = {
-          transparent = true, -- Disable setting background
+          transparent = false, -- Disable setting background
           terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
         },
         palettes = {},
@@ -52,7 +52,9 @@ return {
         groups = {},
       }
 
-      -- vim.cmd 'colorscheme carbonfox'
+      vim.cmd 'colorscheme carbonfox'
+      vim.api.nvim_set_hl(0, 'CursorLine', {})
+      vim.api.nvim_set_hl(0, 'CursorLineNr', {})
     end,
   },
   -- {
