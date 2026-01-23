@@ -135,7 +135,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.o.signcolumn = 'no'
+vim.o.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -1077,3 +1077,16 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('n', '<leader>q', toggle_qf, { desc = 'Toggle Quickfix List' })
+vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { noremap = true, silent = true })
+
+-- Map <leader>zz to open Fugitive status in a new tab
+vim.keymap.set('n', '<leader>zz', '<cmd>G<cr>', { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'fugitive', 'git', 'gitcommit' },
+  callback = function()
+    vim.schedule(function()
+      vim.cmd 'only'
+    end)
+  end,
+})
