@@ -9,18 +9,15 @@ return {
     views = {
       cmdline_popup = {
         position = {
-          row = '10%', -- distance from top
-          col = '95%', -- align to right edge
+          row = '50%', -- distance from top
+          col = '50%', -- align to right edge
         },
         size = {
-          width = 30, -- adjust width (like VSCode’s small box)
+          width = 50, -- adjust width (like VSCode’s small box)
           height = 'auto',
         },
         border = {
           style = 'rounded',
-        },
-        win_options = {
-          winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
         },
       },
     },
