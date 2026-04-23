@@ -31,29 +31,21 @@ return {
         local gs = require 'gitsigns'
 
         -- Navigation
-        vim.keymap.set({'n', 'v'}, '<C-j>', function()
-          if not vim.wo.diff then
-            return
-          end
-
-          if gs then
-            gs.nav_hunk 'next'
+        vim.keymap.set('n', '<C-j>', function()
+          if vim.wo.diff then
+            require('gitsigns').nav_hunk 'next'
           else
-            vim.cmd.normal { ']c', bang = true }
+            vim.cmd 'wincmd j'
           end
-        end, { desc = 'Next hunk (diff only)' })
+        end)
 
-        vim.keymap.set({'n', 'v'}, '<C-k>', function()
-          if not vim.wo.diff then
-            return
-          end
-
-          if gs then
-            gs.nav_hunk 'prev'
+        vim.keymap.set('n', '<C-k>', function()
+          if vim.wo.diff then
+            require('gitsigns').nav_hunk 'prev'
           else
-            vim.cmd.normal { '[c', bang = true }
+            vim.cmd 'wincmd k'
           end
-        end, { desc = 'Prev hunk (diff only)' })
+        end)
 
         -- Stage / reset hunks
         -- NOTE: Running stage_hunk on staged signs will unstage them
@@ -99,7 +91,7 @@ return {
         })
 
         -- Toggle inline blame
-        vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, {
+        vim.keymap.set('n', '<leader>gb', gs.toggle_current_line_blame, {
           buffer = bufnr,
           desc = 'Git: Toggle line blame',
         })

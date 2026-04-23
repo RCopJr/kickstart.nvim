@@ -7,7 +7,7 @@ return {
     timeout = 3000,
     minimum_width = 30,
     max_width = 80,
-    background_colour = '#2E3440', -- Nord0 (dark background)
+    background_colour = '#0B0C0E', -- Oxocarbon dark background
     icons = {
       ERROR = '',
       WARN = '',
@@ -24,29 +24,24 @@ return {
     vim.notify = notify
 
     -- Borders
-    vim.api.nvim_set_hl(0, 'NotifyERRORBorder', { fg = '#BF616A', bg = '#2E3440' }) -- red
-    vim.api.nvim_set_hl(0, 'NotifyWARNBorder', { fg = '#EBCB8B', bg = '#2E3440' }) -- yellow
-    vim.api.nvim_set_hl(0, 'NotifyINFOBorder', { fg = '#81A1C1', bg = '#2E3440' }) -- blue
-    vim.api.nvim_set_hl(0, 'NotifyDEBUGBorder', { fg = '#A3BE8C', bg = '#2E3440' }) -- green
-    vim.api.nvim_set_hl(0, 'NotifyTRACEBorder', { fg = '#B48EAD', bg = '#2E3440' }) -- purple
+    vim.api.nvim_set_hl(0, 'NotifyERRORBorder', { fg = '#F07178', bg = '#0B0C0E' }) -- muted red
+    vim.api.nvim_set_hl(0, 'NotifyWARNBorder', { fg = '#F8BD96', bg = '#0B0C0E' }) -- soft orange
+    vim.api.nvim_set_hl(0, 'NotifyINFOBorder', { fg = '#82AAFF', bg = '#0B0C0E' }) -- muted blue
+    vim.api.nvim_set_hl(0, 'NotifyDEBUGBorder', { fg = '#C3E88D', bg = '#0B0C0E' }) -- soft green
+    vim.api.nvim_set_hl(0, 'NotifyTRACEBorder', { fg = '#C792EA', bg = '#0B0C0E' }) -- lavender
 
     -- Titles
-    vim.api.nvim_set_hl(0, 'NotifyERRORTitle', { fg = '#BF616A' })
-    vim.api.nvim_set_hl(0, 'NotifyWARNTitle', { fg = '#EBCB8B' })
-    vim.api.nvim_set_hl(0, 'NotifyINFOTitle', { fg = '#81A1C1' })
-    vim.api.nvim_set_hl(0, 'NotifyDEBUGTitle', { fg = '#A3BE8C' })
-    vim.api.nvim_set_hl(0, 'NotifyTRACETitle', { fg = '#B48EAD' })
+    vim.api.nvim_set_hl(0, 'NotifyERRORTitle', { fg = '#F07178' })
+    vim.api.nvim_set_hl(0, 'NotifyWARNTitle', { fg = '#F8BD96' })
+    vim.api.nvim_set_hl(0, 'NotifyINFOTitle', { fg = '#82AAFF' })
+    vim.api.nvim_set_hl(0, 'NotifyDEBUGTitle', { fg = '#C3E88D' })
+    vim.api.nvim_set_hl(0, 'NotifyTRACETitle', { fg = '#C792EA' })
 
     -- Icons
-    vim.api.nvim_set_hl(0, 'NotifyERRORIcon', { fg = '#BF616A' })
-    vim.api.nvim_set_hl(0, 'NotifyWARNIcon', { fg = '#EBCB8B' })
-    vim.api.nvim_set_hl(0, 'NotifyINFOIcon', { fg = '#81A1C1' })
-    vim.api.nvim_set_hl(0, 'NotifyDEBUGIcon', { fg = '#A3BE8C' })
-    vim.api.nvim_set_hl(0, 'NotifyTRACEIcon', { fg = '#B48EAD' })
-
-    -- Optional: notification history
-    vim.keymap.set('n', '<leader>nh', function()
-      require('notify').history { reverse = true }
-    end, { desc = 'Show notification history' })
+    vim.api.nvim_set_hl(0, 'NotifyERRORIcon', { fg = '#F07178' })
+    vim.api.nvim_set_hl(0, 'NotifyWARNIcon', { fg = '#F8BD96' })
+    vim.api.nvim_set_hl(0, 'NotifyINFOIcon', { fg = '#82AAFF' })
+    vim.api.nvim_set_hl(0, 'NotifyDEBUGIcon', { fg = '#C3E88D' })
+    vim.api.nvim_set_hl(0, 'NotifyTRACEIcon', { fg = '#C792EA' })
   end,
 }

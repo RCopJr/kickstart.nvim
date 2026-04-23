@@ -1,5 +1,37 @@
 return {
   {
+    'blazkowolf/gruber-darker.nvim',
+    lazy = false, -- load during startup
+    priority = 1000, -- load before other UI plugins
+    config = function(_, opts)
+      -- vim.cmd 'colorscheme gruber-darker'
+      vim.api.nvim_set_hl(0, 'CursorLine', {})
+      vim.api.nvim_set_hl(0, 'CursorLineNr', {})
+    end,
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false, -- load during startup
+    priority = 1000, -- load before other UI plugins
+    opts = {
+      style = 'night', -- night, storm, moon, day transparent = false,
+      terminal_colors = true,
+      transparent = true,
+      styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+        functions = {},
+        variables = {},
+      },
+    },
+    config = function(_, opts)
+      require('tokyonight').setup(opts)
+      vim.cmd 'colorscheme tokyonight'
+      vim.api.nvim_set_hl(0, 'CursorLine', {})
+      vim.api.nvim_set_hl(0, 'CursorLineNr', {})
+    end,
+  },
+  {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,
@@ -8,14 +40,21 @@ return {
         variant = 'main', -- auto, main, moon, or dawn
         dark_variant = 'main',
         styles = {
-          bold = false,
+          bold = true,
           italic = false,
           transparency = true,
         },
       }
-      vim.cmd.colorscheme 'rose-pine'
-      vim.api.nvim_set_hl(0, 'CursorLine', {})
-      vim.api.nvim_set_hl(0, 'CursorLineNr', {})
+      vim.opt.cursorline = false
+      -- vim.cmd.colorscheme 'rose-pine'
+      -- slightly darker/lighter background for treesitter context window
+      vim.api.nvim_set_hl(0, 'TreesitterContext', {
+        bg = '#2f2f2f', -- tweak this
+      })
+
+      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', {
+        bg = '#2f2f2f',
+      })
     end,
   },
   -- {
@@ -23,9 +62,6 @@ return {
   --   config = function()
   --     -- vim.cmd 'colorscheme oxocarbon'
   --     local oxocarbon = require 'oxocarbon'
-  --     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
   --     vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = oxocarbon.blend, bg = oxocarbon.blend })
   --     vim.api.nvim_set_hl(0, 'TelescopePromptBorder', { fg = oxocarbon.base02, bg = oxocarbon.base02 })
   --     vim.api.nvim_set_hl(0, 'TelescopePromptNormal', { fg = oxocarbon.base05, bg = oxocarbon.base02 })
@@ -44,7 +80,7 @@ return {
       -- Default options
       require('nightfox').setup {
         options = {
-          transparent = false, -- Disable setting background
+          transparent = true, -- Disable setting background
           terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
         },
         palettes = {},
@@ -52,7 +88,7 @@ return {
         groups = {},
       }
 
-      vim.cmd 'colorscheme carbonfox'
+      -- vim.cmd 'colorscheme carbonfox'
       vim.api.nvim_set_hl(0, 'CursorLine', {})
       vim.api.nvim_set_hl(0, 'CursorLineNr', {})
     end,
@@ -105,53 +141,53 @@ return {
   --     -- vim.api.nvim_set_hl(0, 'TreesitterContextSeparator', { fg = '#555555' })
   --   end,
   -- },
-  -- {
-  --   'shaunsingh/nord.nvim',
-  --   config = function()
-  --     vim.g.nord_disable_background = true -- no solid background
-  --     vim.g.nord_italic = false -- make comments/keywords non-italic (optional)
-  --     vim.g.nord_bold = false
-  --     vim.g.nord_borders = true -- keep borders styled
-  --     vim.g.nord_contrast = false -- high contrast line numbers/sidebars
-  --
-  --     -- load the colorscheme
-  --     -- vim.cmd.colorscheme 'nord'
-  --
-  --     -- extra tweaks for transparency
-  --     vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
-  --     -- tweak line numbers to be darker
-  --     vim.api.nvim_set_hl(0, 'LineNr', { fg = '#4C566A', bg = 'none' }) -- subtle grey
-  --     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#81A1C1', bg = 'none', bold = true }) -- softer blue for current line
-  --     -- soften the default white
-  --     vim.api.nvim_set_hl(0, 'Normal', { fg = '#D8DEE9', bg = 'none' }) -- softer text
-  --     vim.api.nvim_set_hl(0, 'NormalFloat', { fg = '#D8DEE9', bg = 'none' })
-  --     vim.api.nvim_set_hl(0, 'MsgArea', { fg = '#D8DEE9', bg = 'none' })
-  --     -- treesitter-context background
-  --     vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2E3440' }) -- dark nord0
-  --     vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#81A1C1', bg = '#2E3440' })
-  --     -- make whitespace symbols match line numbers
-  --     vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
-  --     vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
-  --
-  --     local dark_blue = '#5E81AC'
-  --     local function_name_color = '#88C0D0'
-  --
-  --     -- Treesitter overrides
-  --     vim.api.nvim_set_hl(0, '@keyword', { fg = dark_blue })
-  --     vim.api.nvim_set_hl(0, '@keyword.function', { fg = dark_blue })
-  --     vim.api.nvim_set_hl(0, '@keyword.return', { fg = dark_blue })
-  --     vim.api.nvim_set_hl(0, '@conditional', { fg = dark_blue })
-  --     vim.api.nvim_set_hl(0, '@repeat', { fg = dark_blue })
-  --   end,
-  -- },
+  {
+    'shaunsingh/nord.nvim',
+    config = function()
+      vim.g.nord_disable_background = true -- no solid background
+      vim.g.nord_italic = false -- make comments/keywords non-italic (optional)
+      vim.g.nord_bold = false
+      vim.g.nord_borders = true -- keep borders styled
+      vim.g.nord_contrast = false -- high contrast line numbers/sidebars
+
+      -- load the colorscheme
+      -- vim.cmd.colorscheme 'nord'
+
+      -- extra tweaks for transparency
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'MsgArea', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'LineNr', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'Folded', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'NonText', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'none' })
+      -- tweak line numbers to be darker
+      vim.api.nvim_set_hl(0, 'LineNr', { fg = '#4C566A', bg = 'none' }) -- subtle grey
+      vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#81A1C1', bg = 'none', bold = true }) -- softer blue for current line
+      -- soften the default white
+      vim.api.nvim_set_hl(0, 'Normal', { fg = '#D8DEE9', bg = 'none' }) -- softer text
+      vim.api.nvim_set_hl(0, 'NormalFloat', { fg = '#D8DEE9', bg = 'none' })
+      vim.api.nvim_set_hl(0, 'MsgArea', { fg = '#D8DEE9', bg = 'none' })
+      -- treesitter-context background
+      vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#2E3440' }) -- dark nord0
+      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { fg = '#81A1C1', bg = '#2E3440' })
+      -- make whitespace symbols match line numbers
+      vim.api.nvim_set_hl(0, 'Whitespace', { link = 'LineNr' })
+      vim.api.nvim_set_hl(0, 'NonText', { link = 'LineNr' })
+
+      local dark_blue = '#5E81AC'
+      local function_name_color = '#88C0D0'
+
+      -- Treesitter overrides
+      vim.api.nvim_set_hl(0, '@keyword', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@keyword.function', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@keyword.return', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@conditional', { fg = dark_blue })
+      vim.api.nvim_set_hl(0, '@repeat', { fg = dark_blue })
+    end,
+  },
   -- {
   --   'AlexvZyl/nordic.nvim',
   --   lazy = false,
@@ -207,23 +243,22 @@ return {
   --     }
   --   end,
   -- },
-  -- {
-  --   'sainnhe/gruvbox-material',
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     vim.g.gruvbox_material_enable_italic = true
-  --     vim.g.gruvbox_material_background = 'medium'
-  --     vim.g.gruvbox_material_transparent_background = '1'
-  --     vim.g.gruvbox_material_enable_bold = '0'
-  --     vim.g.gruvbox_material_float_style = 'dim'
-  --     vim.g.gruvbox_material_diagnostic_text_highlight = '1'
-  --     vim.g.gruvbox_material_diagnostic_line_highlight = '1'
-  --     -- vim.g.gruvbox_material_current_word = 'underline'
-  --     vim.opt.cursorline = false
-  --     vim.cmd.colorscheme 'gruvbox' -- or "lackluster", "lackluster-mint"
-  --   end,
-  -- },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_enable_italic = true
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_enable_bold = '0'
+      vim.g.gruvbox_material_float_style = 'dim'
+      vim.g.gruvbox_material_diagnostic_text_highlight = '1'
+      vim.g.gruvbox_material_diagnostic_line_highlight = '1'
+      -- vim.g.gruvbox_material_current_word = 'underline'
+      vim.opt.cursorline = false
+      -- vim.cmd.colorscheme 'gruvbox-material' -- or "lackluster", "lackluster-mint"
+    end,
+  },
   -- {
   --   'folke/tokyonight.nvim',
   --   priority = 1000, -- Make sure to load this before all the other start plugins.

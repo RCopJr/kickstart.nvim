@@ -125,9 +125,9 @@ vim.o.undofile = true
 
 -- Global indentation defaults
 vim.opt.expandtab = true -- use spaces instead of tabs
-vim.opt.shiftwidth = 2 -- indent by 2 spaces
-vim.opt.softtabstop = 2 -- <Tab> inserts 2 spaces
-vim.opt.tabstop = 2 -- show existing tab characters as 2 spaces
+vim.opt.shiftwidth = 4 -- indent by 2 spaces
+vim.opt.softtabstop = 4 -- <Tab> inserts 2 spaces
+vim.opt.tabstop = 4 -- show existing tab characters as 2 spaces
 vim.opt.smartindent = true -- smarter autoindent
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
@@ -429,6 +429,9 @@ require('lazy').setup({
             prompt_position = 'top',
             width = 0.9,
             height = 0.9,
+            horizontal = {
+              preview_cutoff = 0,
+            },
           },
         },
         extensions = {
@@ -450,6 +453,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = '[F]find [C]olorschemes' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]find [R]esume' })
       vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = '[F]ind [S]ymbols (buffer)' })
+      vim.keymap.set('n', '<leader>fe', builtin.lsp_workspace_symbols, { desc = '[F]ind [S]ymbols (buffer)' })
       -- Find TODOs in current buffer only
       vim.keymap.set('n', '<leader>ft', function()
         -- search "TODO" in current buffer and populate quickfix list
@@ -593,6 +597,7 @@ require('lazy').setup({
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -1077,16 +1082,10 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('n', '<leader>q', toggle_qf, { desc = 'Toggle Quickfix List' })
-vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { noremap = true, silent = true })
 
--- Map <leader>zz to open Fugitive status in a new tab
-vim.keymap.set('n', '<leader>zz', '<cmd>G<cr>', { noremap = true, silent = true })
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'fugitive', 'git', 'gitcommit' },
-  callback = function()
-    vim.schedule(function()
-      vim.cmd 'only'
-    end)
-  end,
-})
+-- Update insert cursor to blink
+vim.o.guicursor = table.concat({
+  "n-v-c:block",
+  "i-ci:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+  "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
+}, ",")
