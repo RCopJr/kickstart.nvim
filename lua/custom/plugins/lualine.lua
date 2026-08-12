@@ -2,7 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   opts = {
     options = {
-      theme = 'horizon', -- Use the Gruvbox Material theme
+      theme = 'iceberg_dark', -- Use the Gruvbox Material theme
       component_separators = { left = '│', right = '│' },
       section_separators = { left = '', right = '' },
       disabled_filetypes = { 'NvimTree', 'packer' },

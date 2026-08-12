@@ -1,5 +1,59 @@
 return {
   {
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Default options:
+      require('kanagawa').setup {
+        commentStyle = { italic = false },
+        functionStyle = {},
+        keywordStyle = { italic = false },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false, -- do not set background color
+        colors = { -- add/modify theme and palette colors
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+        },
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = 'dragon', -- Load "wave" theme
+        background = { -- map the value of 'background' option to a theme
+          dark = 'dragon', -- try "dragon" !
+          light = 'lotus',
+        },
+      }
+
+      -- setup must be called before loading
+      -- vim.cmd 'colorscheme kanagawa'
+    end,
+  },
+  {
+    'dapovich/anysphere.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('anysphere').setup {
+        italics = false, -- disable italics
+      }
+      vim.cmd.colorscheme 'anysphere'
+
+      -- The default cursor-word highlight is a bright teal that swallows the
+      -- text on top of it. Swap it for a dim slate background and let the
+      -- syntax colors show through.
+      local word_hl = { bg = '#2c3438', fg = 'NONE', bold = false }
+      vim.api.nvim_set_hl(0, 'LspReferenceText', word_hl)
+      vim.api.nvim_set_hl(0, 'LspReferenceRead', word_hl)
+      vim.api.nvim_set_hl(0, 'LspReferenceWrite', word_hl)
+      vim.api.nvim_set_hl(0, 'LspReferenceTarget', word_hl)
+      vim.api.nvim_set_hl(0, 'IlluminatedWordText', word_hl)
+      vim.api.nvim_set_hl(0, 'IlluminatedWordRead', word_hl)
+      vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', word_hl)
+    end,
+  },
+  {
     'blazkowolf/gruber-darker.nvim',
     lazy = false, -- load during startup
     priority = 1000, -- load before other UI plugins
@@ -16,7 +70,7 @@ return {
     opts = {
       style = 'night', -- night, storm, moon, day transparent = false,
       terminal_colors = true,
-      transparent = true,
+      transparent = false,
       styles = {
         comments = { italic = false },
         keywords = { italic = false },
@@ -26,7 +80,7 @@ return {
     },
     config = function(_, opts)
       require('tokyonight').setup(opts)
-      vim.cmd 'colorscheme tokyonight'
+      -- vim.cmd 'colorscheme tokyonight'
       vim.api.nvim_set_hl(0, 'CursorLine', {})
       vim.api.nvim_set_hl(0, 'CursorLineNr', {})
     end,
@@ -42,7 +96,7 @@ return {
         styles = {
           bold = true,
           italic = false,
-          transparency = true,
+          transparency = false,
         },
       }
       vim.opt.cursorline = false
@@ -80,7 +134,7 @@ return {
       -- Default options
       require('nightfox').setup {
         options = {
-          transparent = true, -- Disable setting background
+          transparent = false, -- Disable setting background
           terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
         },
         palettes = {},
